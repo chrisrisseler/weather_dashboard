@@ -2,11 +2,16 @@ var area = ""
 var lat = ""
 var lon = ""
 var momentTime = moment().format('MM/DD/YYYY');
+var cityArray = [];
+
 
 function clear() {
-    $(".fiveday").empty();
-    $(".display").empty();
+    // $(".fiveday").empty();
+    $("#current-weather").empty();
     // $("searchBar").empty();
+    for (var i = 0; i < 5; i++) {
+        $(".forcast" + (i + 1)).empty()
+    }
 }
 
 // function getLatLon(input) {
@@ -30,13 +35,17 @@ function get5Day(areaName) {
     }).then(display5Day)
 }
 
+function queryData(query) {
+    getCurrentData(query)
+    get5Day(query)
+    $(".fiveday").addClass("fivedayShow")
+}
+
 $(".searchBtn").on("click", function (event) {
     event.preventDefault();
     clear();
     area = $(".searchBar").val();
-    getCurrentData(area)
-    get5Day(area)
-    $(".fiveday").addClass("fivedayShow")
+    queryData(area)
 })
 
 
@@ -45,6 +54,24 @@ function convertTemp(kelvin) {
     var farenheit = Math.floor(celsius * (9 / 5) + 32);
     return farenheit;
 };
+
+function clickName() {
+    clear();
+    var clickedText = $(this).text()
+    queryData(clickedText)
+}
+
+function renderCities() {
+    cityArray = JSON.parse(localStorage.getItem("city"))
+
+    for (var i = 0; i < cityArray.length; i++) {
+        var nameDisplay = $("<div>")
+        nameDisplay.text(cityArray[i])
+        nameDisplay.on("click", clickName)
+        $(".select-name").prepend(nameDisplay)
+    }
+
+}
 
 
 function displayWeather(data) {
@@ -60,36 +87,93 @@ function displayWeather(data) {
     windDiv.addClass("body")
     uvDiv.addClass("body")
 
-    var iconDiv = $("<div>")
+    var iconDiv = $("<span>")
     var iconCode = data.weather[0].icon
     // console.log(iconCode)
     var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png"
     var weatherIcon = $("<img>").attr("src", iconURL)
 
-    nameDiv.text(data.name + " " + momentTime);
+    nameDiv.text(data.name + " (" + momentTime + ")");
     iconDiv.append(weatherIcon)
+    iconDiv.addClass("iconDiv")
 
     nameDiv.append(iconDiv)
     tempDiv.text("Temperature: " + convertTemp(data.main.temp) + " Degrees F")
     humidityDiv.text("Humidity: " + data.main.humidity + "%")
     windDiv.text("Wind Speed: " + data.wind.speed + " MPH")
-    $(".display").append(nameDiv, tempDiv, humidityDiv, windDiv)
-    //put name into list:
-    $(".select-name").append(data.name)
+    $("#current-weather").append(nameDiv, tempDiv, humidityDiv, windDiv)
+
+
+    if (cityArray.indexOf(data.name) === -1) {
+        //put name into list:
+
+        var nameDisplay = $("<div>")
+        nameDisplay.text(data.name)
+        nameDisplay.on("click", clickName)
+
+        $(".select-name").prepend(nameDisplay)
+
+        cityArray.unshift(data.name)
+        localStorage.setItem("city", JSON.stringify(cityArray))
+    }
+
+
+
 
     var uvQueryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
     $.ajax({
         url: uvQueryURL,
         method: "GET"
     }).then(function (response) {
-
-        uvDiv.text("UV Index: " + response.value)
+        var uvSpan = $("<span>")
+        uvDiv.text("UV Index: ")
+        uvSpan.text(response.value)
+        uvDiv.append(uvSpan)
         // console.log(response)
+        uvSpan.addClass("uvSpan")
+        // console.log(typeof response.value)
+        if (response.value <= 2) {
+            uvSpan.attr("style", "background-color: green")
+            // uvSpan.attr("style", "color: white")
+        }
+        else if (response.value <= 5 && response.value > 2) {
+            uvSpan.attr("style", "background-color: yellow")
+        }
+        else if (response.value <= 7 && response.value > 5) {
+            uvSpan.attr("style", "background-color: orange")
+        }
+        else if (response.value <= 10 && response.value > 7) {
+            uvSpan.attr("style", "background-color: red")
+            // uvSpan.attr("style", "color: white")
+        }
+        else {
+            uvSpan.attr("style", "background-color:purple")
+            // uvSpan.attr("style", "color: white")
+        }
+
     })
-    $(".display").append(uvDiv)
+    $("#current-weather").append(uvDiv)
 
 }
 function display5Day(data) {
+    // $(".fiveday").empty();
+    // var fiveDayPlacement = $("<div>")
+    // fiveDayPlacement.attr("id", "fivedayPlacement")
+    // fiveDayPlacement.addClass("row justify-content-center")
+
+    // $("#weather-display").append(fiveDayPlacement)
+
+
+
+    // for (var i = 0; i < 5; i++) {
+
+    //     var fiveDayDiv = $("<div>")
+    //     fiveDayDiv.addClass("forcast" + [i + 1] + " col-md-2 fiveday fivedayShow justify-content-center")
+    //     $("#fivedayPlacement").append(fiveDayDiv)
+
+    // }
+
+
     var dayOne = $(".forcast1")
     var dayTwo = $(".forcast2")
     var dayThree = $(".forcast3")
@@ -165,3 +249,5 @@ function display5Day(data) {
     dayFour.append(dayFourDate, dayFourIcon, dayFourTemp, dayFourHumid)
     dayFive.append(dayFiveDate, dayFiveIcon, dayFiveTemp, dayFiveHumid)
 }
+
+renderCities()
