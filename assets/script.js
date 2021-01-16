@@ -100,7 +100,7 @@ function display5Day(data) {
     var dayOneIcon = $("<div>")
     var dayOneTemp = $("<div>")
     var dayOneHumid = $("<div>")
-    var oneIconCode = data.list[4].weather.icon;
+    var oneIconCode = data.list[4].weather[0].icon;
     var oneIconURL = "http://openweathermap.org/img/w/" + oneIconCode + ".png"
     var weatherIconOne = $("<img>").attr("src", oneIconURL)
     dayOneDate.text(moment().add(1, 'd').format('MM/DD/YYYY'));
@@ -112,7 +112,7 @@ function display5Day(data) {
     var dayTwoIcon = $("<div>")
     var dayTwoTemp = $("<div>")
     var dayTwoHumid = $("<div>")
-    var twoIconCode = data.list[12].weather.icon;
+    var twoIconCode = data.list[12].weather[0].icon;
     var twoIconURL = "http://openweathermap.org/img/w/" + twoIconCode + ".png"
     var weatherIconTwo = $("<img>").attr("src", twoIconURL)
     dayTwoDate.text(moment().add(2, 'd').format('MM/DD/YYYY'));
@@ -124,7 +124,7 @@ function display5Day(data) {
     var dayThreeIcon = $("<div>")
     var dayThreeTemp = $("<div>")
     var dayThreeHumid = $("<div>")
-    var threeIconCode = data.list[20].weather.icon;
+    var threeIconCode = data.list[20].weather[0].icon;
     var threeIconURL = "http://openweathermap.org/img/w/" + threeIconCode + ".png"
     var weatherIconThree = $("<img>").attr("src", threeIconURL)
     dayThreeDate.text(moment().add(3, 'd').format('MM/DD/YYYY'));
@@ -136,11 +136,11 @@ function display5Day(data) {
     var dayFourIcon = $("<div>")
     var dayFourTemp = $("<div>")
     var dayFourHumid = $("<div>")
-    var fourIconCode = data.list[28].weather.icon;
+    var fourIconCode = data.list[28].weather[0].icon;
     var fourIconURL = "http://openweathermap.org/img/w/" + fourIconCode + ".png"
     var weatherIconFour = $("<img>").attr("src", fourIconURL)
     dayFourDate.text(moment().add(4, 'd').format('MM/DD/YYYY'));
-    dayFourTemp.text("Temp: " + convertTemp(data.list[28].main.temp) + "%")
+    dayFourTemp.text("Temp: " + convertTemp(data.list[28].main.temp) + "F")
     dayFourHumid.text("Humidity: " + data.list[28].main.humidity + "%")
     dayFourIcon.append(weatherIconFour)
 
@@ -148,13 +148,16 @@ function display5Day(data) {
     var dayFiveIcon = $("<div>")
     var dayFiveTemp = $("<div>")
     var dayFiveHumid = $("<div>")
-    var fiveIconCode = data.list[36].weather.icon;
+    var fiveIconCode = data.list[36].weather[0].icon;
     var fiveIconURL = "http://openweathermap.org/img/w/" + fiveIconCode + ".png"
     var weatherIconFive = $("<img>").attr("src", fiveIconURL)
     dayFiveDate.text(moment().add(5, 'd').format('MM/DD/YYYY'));
     dayFiveTemp.text("Temp: " + convertTemp(data.list[36].main.temp) + "F")
     dayFiveHumid.text("Humidity: " + data.list[36].main.humidity + "%")
     dayFiveIcon.append(weatherIconFive)
+
+    // console.log(fiveIconCode)
+    // console.log(fiveIconURL)
 
     dayOne.append(dayOneDate, dayOneIcon, dayOneTemp, dayOneHumid)
     dayTwo.append(dayTwoDate, dayTwoIcon, dayTwoTemp, dayTwoHumid)

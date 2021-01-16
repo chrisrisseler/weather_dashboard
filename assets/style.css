@@ -11,14 +11,16 @@ btn{
 .body{
     font-size: 25px;
     padding: 10px;
+    
 }
 
 .fivedayShow{
 background-color: blue;
 margin:10px;
 width:120px;
-height:90px;
+height:120px;
 color:white;
+position: relative;
 
 }
 
