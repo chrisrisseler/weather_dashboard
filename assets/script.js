@@ -3,7 +3,7 @@ var lat = ""
 var lon = ""
 var momentTime = moment().format('MM/DD/YYYY');
 var cityArray = [];
-
+localStorage.setItem("city", JSON.stringify(cityArray))
 
 function clear() {
     // $(".fiveday").empty();
@@ -61,17 +61,7 @@ function clickName() {
     queryData(clickedText)
 }
 
-function renderCities() {
-    cityArray = JSON.parse(localStorage.getItem("city"))
 
-    for (var i = 0; i < cityArray.length; i++) {
-        var nameDisplay = $("<div>")
-        nameDisplay.text(cityArray[i])
-        nameDisplay.on("click", clickName)
-        $(".select-name").prepend(nameDisplay)
-    }
-
-}
 
 
 function displayWeather(data) {
@@ -259,6 +249,19 @@ function display5Day(data) {
     dayFive.append(dayFiveDate, dayFiveIcon, dayFiveTemp, dayFiveHumid)
 }
 
-if (cityArray !== []) {
-    renderCities()
+
+function renderCities() {
+    cityArray = JSON.parse(localStorage.getItem("city"))
+
+    for (var i = 0; i < cityArray.length; i++) {
+        var nameDisplay = $("<div>")
+        nameDisplay.text(cityArray[i])
+        nameDisplay.on("click", clickName)
+        $(".select-name").prepend(nameDisplay)
+    }
 }
+
+
+renderCities()
+
+
