@@ -3,7 +3,7 @@ var lat = ""
 var lon = ""
 var momentTime = moment().format('MM/DD/YYYY');
 var cityArray = [];
-localStorage.setItem("city", JSON.stringify(cityArray))
+
 
 function clear() {
     // $(".fiveday").empty();
@@ -20,7 +20,7 @@ function clear() {
 // }
 
 function getCurrentData(areaName) {
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + areaName + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + areaName + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -28,7 +28,7 @@ function getCurrentData(areaName) {
 }
 
 function get5Day(areaName) {
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + areaName + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
+    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + areaName + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -80,7 +80,7 @@ function displayWeather(data) {
     var iconDiv = $("<span>")
     var iconCode = data.weather[0].icon
     // console.log(iconCode)
-    var iconURL = "https://openweathermap.org/img/w/" + iconCode + ".png"
+    var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png"
     var weatherIcon = $("<img>").attr("src", iconURL)
 
     nameDiv.text(data.name + " (" + momentTime + ")");
@@ -88,7 +88,7 @@ function displayWeather(data) {
     iconDiv.addClass("iconDiv")
 
     nameDiv.append(iconDiv)
-    tempDiv.text("Temperature: " + convertTemp(data.main.temp) + " Degrees F")
+    tempDiv.text("Temperature: " + convertTemp(data.main.temp) + "\u00B0 F")
     humidityDiv.text("Humidity: " + data.main.humidity + "%")
     windDiv.text("Wind Speed: " + data.wind.speed + " MPH")
     $("#current-weather").append(nameDiv, tempDiv, humidityDiv, windDiv)
@@ -110,7 +110,7 @@ function displayWeather(data) {
 
 
 
-    var uvQueryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
+    var uvQueryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
     $.ajax({
         url: uvQueryURL,
         method: "GET"
@@ -177,10 +177,10 @@ function display5Day(data) {
     var dayOneTemp = $("<div>")
     var dayOneHumid = $("<div>")
     var oneIconCode = data.list[4].weather[0].icon;
-    var oneIconURL = "https://openweathermap.org/img/w/" + oneIconCode + ".png"
+    var oneIconURL = "http://openweathermap.org/img/w/" + oneIconCode + ".png"
     var weatherIconOne = $("<img>").attr("src", oneIconURL)
     dayOneDate.text(moment().add(1, 'd').format('MM/DD/YYYY'));
-    dayOneTemp.text("Temp: " + convertTemp(data.list[4].main.temp) + "F");
+    dayOneTemp.text("Temp: " + convertTemp(data.list[4].main.temp) + "\u00B0 F");
     dayOneHumid.text("Humidity: " + data.list[4].main.humidity + "%");
     dayOneIcon.append(weatherIconOne)
 
@@ -189,10 +189,10 @@ function display5Day(data) {
     var dayTwoTemp = $("<div>")
     var dayTwoHumid = $("<div>")
     var twoIconCode = data.list[12].weather[0].icon;
-    var twoIconURL = "https://openweathermap.org/img/w/" + twoIconCode + ".png"
+    var twoIconURL = "http://openweathermap.org/img/w/" + twoIconCode + ".png"
     var weatherIconTwo = $("<img>").attr("src", twoIconURL)
     dayTwoDate.text(moment().add(2, 'd').format('MM/DD/YYYY'));
-    dayTwoTemp.text("Temp: " + convertTemp(data.list[12].main.temp) + "F")
+    dayTwoTemp.text("Temp: " + convertTemp(data.list[12].main.temp) + "\u00B0 F")
     dayTwoHumid.text("Humidity: " + data.list[12].main.humidity + "%")
     dayTwoIcon.append(weatherIconTwo)
 
@@ -201,10 +201,10 @@ function display5Day(data) {
     var dayThreeTemp = $("<div>")
     var dayThreeHumid = $("<div>")
     var threeIconCode = data.list[20].weather[0].icon;
-    var threeIconURL = "https://openweathermap.org/img/w/" + threeIconCode + ".png"
+    var threeIconURL = "http://openweathermap.org/img/w/" + threeIconCode + ".png"
     var weatherIconThree = $("<img>").attr("src", threeIconURL)
     dayThreeDate.text(moment().add(3, 'd').format('MM/DD/YYYY'));
-    dayThreeTemp.text("Temp: " + convertTemp(data.list[20].main.temp) + "F")
+    dayThreeTemp.text("Temp: " + convertTemp(data.list[20].main.temp) + "\u00B0 F")
     dayThreeHumid.text("Humidity: " + data.list[20].main.humidity + "%")
     dayThreeIcon.append(weatherIconThree)
 
@@ -213,10 +213,10 @@ function display5Day(data) {
     var dayFourTemp = $("<div>")
     var dayFourHumid = $("<div>")
     var fourIconCode = data.list[28].weather[0].icon;
-    var fourIconURL = "https://openweathermap.org/img/w/" + fourIconCode + ".png"
+    var fourIconURL = "http://openweathermap.org/img/w/" + fourIconCode + ".png"
     var weatherIconFour = $("<img>").attr("src", fourIconURL)
     dayFourDate.text(moment().add(4, 'd').format('MM/DD/YYYY'));
-    dayFourTemp.text("Temp: " + convertTemp(data.list[28].main.temp) + "F")
+    dayFourTemp.text("Temp: " + convertTemp(data.list[28].main.temp) + "\u00B0 F")
     dayFourHumid.text("Humidity: " + data.list[28].main.humidity + "%")
     dayFourIcon.append(weatherIconFour)
 
@@ -225,10 +225,10 @@ function display5Day(data) {
     var dayFiveTemp = $("<div>")
     var dayFiveHumid = $("<div>")
     var fiveIconCode = data.list[36].weather[0].icon;
-    var fiveIconURL = "https://openweathermap.org/img/w/" + fiveIconCode + ".png"
+    var fiveIconURL = "http://openweathermap.org/img/w/" + fiveIconCode + ".png"
     var weatherIconFive = $("<img>").attr("src", fiveIconURL)
     dayFiveDate.text(moment().add(5, 'd').format('MM/DD/YYYY'));
-    dayFiveTemp.text("Temp: " + convertTemp(data.list[36].main.temp) + "F")
+    dayFiveTemp.text("Temp: " + convertTemp(data.list[36].main.temp) + "\u00B0 F")
     dayFiveHumid.text("Humidity: " + data.list[36].main.humidity + "%")
     dayFiveIcon.append(weatherIconFive)
 
@@ -252,16 +252,28 @@ function display5Day(data) {
 
 function renderCities() {
     cityArray = JSON.parse(localStorage.getItem("city"))
+    // localStorage.setItem("city", JSON.stringify(cityArray))
 
-    for (var i = 0; i < cityArray.length; i++) {
-        var nameDisplay = $("<div>")
-        nameDisplay.text(cityArray[i])
-        nameDisplay.on("click", clickName)
-        $(".select-name").prepend(nameDisplay)
+    if (cityArray === null) {
+        cityArray = []
+        localStorage.setItem("city", JSON.stringify(cityArray))
     }
+
+    else {
+        cityArray = JSON.parse(localStorage.getItem("city"))
+        for (var i = 0; i < cityArray.length; i++) {
+            var nameDisplay = $("<div>")
+            nameDisplay.text(cityArray[i])
+            nameDisplay.on("click", clickName)
+            $(".select-name").append(nameDisplay)
+        }
+
+    }
+
+
 }
 
-
+// localStorage.setItem("city", JSON.stringify(cityArray))
 renderCities()
 
 
