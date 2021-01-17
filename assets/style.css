@@ -1,11 +1,12 @@
 btn{
     color:white;
 }
+
 /* .display{
     float:right;
 } */
 .card-title{
-    font-size:40px;
+    font-size:35px;
 }
 
 .body{
@@ -13,13 +14,18 @@ btn{
     padding: 10px;
     ;
 }
-/* 
-.uvSpan{
+
+.uvSpan1{
     color:white;
-} */
+    border-radius: 5px;
+}
+.uvspan2{
+    border-radius: 5px;
+    color:rgb(66, 66, 66);
+}
 
 .fivedayShow{
-background-color: rgb(75, 75, 236);
+background-color: rgb(77, 77, 255);
 /* margin:10px;
 width:120px;
 height:120px; */
@@ -33,16 +39,27 @@ font-size: 14px;
 /* #fivedayPlacement{
     justify-content: center;
 } */
+.name-list{
+   font-size:18;
+}
 
+.search-title{
+    font-size:18;
+    font-weight: bold;
+}
 
 header{
     background-color: rgb(56, 56, 56);
     color:white;
     text-align: center;
-    height: 60px;
+    height: 65px;
     font-size: 45px;
 }
 /* .iconDiv{
     float:right;
     position:relative;
 } */
+
+.date{
+    font-weight: bold;
+}

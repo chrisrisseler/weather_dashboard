@@ -81,7 +81,7 @@ function displayWeather(data) {
     var windDiv = $("<div>")
     var uvDiv = $("<div>")
 
-    nameDiv.addClass("card-title")
+    nameDiv.addClass("card-title date")
     tempDiv.addClass("body")
     humidityDiv.addClass("body")
     windDiv.addClass("body")
@@ -110,7 +110,7 @@ function displayWeather(data) {
         var nameDisplay = $("<div>")
         nameDisplay.text(data.name)
         nameDisplay.on("click", clickName)
-
+        nameDisplay.addClass("name-list")
         $(".select-name").prepend(nameDisplay)
 
         cityArray.unshift(data.name)
@@ -134,21 +134,23 @@ function displayWeather(data) {
         // console.log(typeof response.value)
         if (response.value <= 2) {
             uvSpan.attr("style", "background-color: green")
-            // uvSpan.attr("style", "color: white")
+            uvSpan.addClass("uvSpan1")
         }
         else if (response.value <= 5 && response.value > 2) {
             uvSpan.attr("style", "background-color: yellow")
+            uvSpan.addClass("uvspan2")
         }
         else if (response.value <= 7 && response.value > 5) {
             uvSpan.attr("style", "background-color: orange")
+            uvSpan.addClass("uvspan2")
         }
         else if (response.value <= 10 && response.value > 7) {
             uvSpan.attr("style", "background-color: red")
-            // uvSpan.attr("style", "color: white")
+            uvSpan.addClass("uvSpan1")
         }
         else {
             uvSpan.attr("style", "background-color:purple")
-            // uvSpan.attr("style", "color: white")
+            uvSpan.addClass("uvSpan1")
         }
 
     })
@@ -242,6 +244,13 @@ function display5Day(data) {
 
     // console.log(fiveIconCode)
     // console.log(fiveIconURL)
+
+    dayOneDate.addClass("date")
+    dayTwoDate.addClass("date")
+    dayThreeDate.addClass("date")
+    dayFourDate.addClass("date")
+    dayFiveDate.addClass("date")
+
 
     dayOne.append(dayOneDate, dayOneIcon, dayOneTemp, dayOneHumid)
     dayTwo.append(dayTwoDate, dayTwoIcon, dayTwoTemp, dayTwoHumid)
