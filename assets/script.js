@@ -259,4 +259,6 @@ function display5Day(data) {
     dayFive.append(dayFiveDate, dayFiveIcon, dayFiveTemp, dayFiveHumid)
 }
 
-renderCities()
+if (cityArray !== []) {
+    renderCities()
+}
