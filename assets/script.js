@@ -20,7 +20,7 @@ function clear() {
 // }
 
 function getCurrentData(areaName) {
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + areaName + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + areaName + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -28,7 +28,7 @@ function getCurrentData(areaName) {
 }
 
 function get5Day(areaName) {
-    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + areaName + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + areaName + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -80,7 +80,7 @@ function displayWeather(data) {
     var iconDiv = $("<span>")
     var iconCode = data.weather[0].icon
     // console.log(iconCode)
-    var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png"
+    var iconURL = "https://openweathermap.org/img/w/" + iconCode + ".png"
     var weatherIcon = $("<img>").attr("src", iconURL)
 
     nameDiv.text(data.name + " (" + momentTime + ")");
@@ -110,7 +110,7 @@ function displayWeather(data) {
 
 
 
-    var uvQueryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
+    var uvQueryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=e8f25ce1d29428f3bfaa9b91edbf1f50"
     $.ajax({
         url: uvQueryURL,
         method: "GET"
@@ -177,7 +177,7 @@ function display5Day(data) {
     var dayOneTemp = $("<div>")
     var dayOneHumid = $("<div>")
     var oneIconCode = data.list[4].weather[0].icon;
-    var oneIconURL = "http://openweathermap.org/img/w/" + oneIconCode + ".png"
+    var oneIconURL = "https://openweathermap.org/img/w/" + oneIconCode + ".png"
     var weatherIconOne = $("<img>").attr("src", oneIconURL)
     dayOneDate.text(moment().add(1, 'd').format('MM/DD/YYYY'));
     dayOneTemp.text("Temp: " + convertTemp(data.list[4].main.temp) + "F");
@@ -189,7 +189,7 @@ function display5Day(data) {
     var dayTwoTemp = $("<div>")
     var dayTwoHumid = $("<div>")
     var twoIconCode = data.list[12].weather[0].icon;
-    var twoIconURL = "http://openweathermap.org/img/w/" + twoIconCode + ".png"
+    var twoIconURL = "https://openweathermap.org/img/w/" + twoIconCode + ".png"
     var weatherIconTwo = $("<img>").attr("src", twoIconURL)
     dayTwoDate.text(moment().add(2, 'd').format('MM/DD/YYYY'));
     dayTwoTemp.text("Temp: " + convertTemp(data.list[12].main.temp) + "F")
@@ -201,7 +201,7 @@ function display5Day(data) {
     var dayThreeTemp = $("<div>")
     var dayThreeHumid = $("<div>")
     var threeIconCode = data.list[20].weather[0].icon;
-    var threeIconURL = "http://openweathermap.org/img/w/" + threeIconCode + ".png"
+    var threeIconURL = "https://openweathermap.org/img/w/" + threeIconCode + ".png"
     var weatherIconThree = $("<img>").attr("src", threeIconURL)
     dayThreeDate.text(moment().add(3, 'd').format('MM/DD/YYYY'));
     dayThreeTemp.text("Temp: " + convertTemp(data.list[20].main.temp) + "F")
@@ -213,7 +213,7 @@ function display5Day(data) {
     var dayFourTemp = $("<div>")
     var dayFourHumid = $("<div>")
     var fourIconCode = data.list[28].weather[0].icon;
-    var fourIconURL = "http://openweathermap.org/img/w/" + fourIconCode + ".png"
+    var fourIconURL = "https://openweathermap.org/img/w/" + fourIconCode + ".png"
     var weatherIconFour = $("<img>").attr("src", fourIconURL)
     dayFourDate.text(moment().add(4, 'd').format('MM/DD/YYYY'));
     dayFourTemp.text("Temp: " + convertTemp(data.list[28].main.temp) + "F")
@@ -225,7 +225,7 @@ function display5Day(data) {
     var dayFiveTemp = $("<div>")
     var dayFiveHumid = $("<div>")
     var fiveIconCode = data.list[36].weather[0].icon;
-    var fiveIconURL = "http://openweathermap.org/img/w/" + fiveIconCode + ".png"
+    var fiveIconURL = "https://openweathermap.org/img/w/" + fiveIconCode + ".png"
     var weatherIconFive = $("<img>").attr("src", fiveIconURL)
     dayFiveDate.text(moment().add(5, 'd').format('MM/DD/YYYY'));
     dayFiveTemp.text("Temp: " + convertTemp(data.list[36].main.temp) + "F")
